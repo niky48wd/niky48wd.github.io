@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Javascript Tabs</title>
+  <style>
+
+  /*tab styles*/
+aside.languages {
+	font: .8em "Lucida Sans Unicode", "Lucida Grande", sans-serif;
+	background: rgba(153, 118, 51, 0.71);
+	padding: 25px;
+	padding-top: 1em;
+	float: right;
+/*	width: 500px;*/
+    width: 100%;
+	margin-left: 1em;
+}
+
+.languages h3 {
+	font-weight: normal;
+	color: white;
+	font-size: 1.6em;
+	margin-bottom:.5em;
+}
+
+#tabContainer h4 {
+	color: rgb(83, 104, 138);
+	font-size: 2em;
+}
+
+#tabs{
+	height:30px;
+	overflow:hidden;
+}
+
+#tabs > ul{
+	font: 1em;
+	list-style:none;
+}
+#tabs ul, #tabs li {
+	margin:0;
+	padding:0;
+}
+
+#tabs > ul > li{
+	margin:0 2px 0 0;
+	padding:7px 10px;
+	display:block;
+	float:left;
+	color:#FFF;
+	border-top-left-radius:4px;
+	border-top-right-radius: 4px;
+	background: #ddd;
+}
+
+#tabs > ul > li:hover{
+	background: white; 
+	cursor:pointer;
+}
+
+#tabs > ul > .active{
+	background: white; /* old browsers */
+	cursor:pointer;
+}
+
+#containers div {
+	background: white;
+	padding:10px 10px 25px;
+	margin:0;
+	color:#333;
+}
+#tabs a {
+	text-decoration: none;
+	color: black;
+}
+    
+  </style>
+  <script>
+//tabbed panels
+
+// declare globals to hold all the links and all the panel elements
+var tabLinks;
+var tabPanels;
+
+window.onload=function() {
+    
+    // when the page loads, grab the li elements
+    tabLinks = document.getElementById("tabs").getElementsByTagName("li");
+	// Now get all the tab panel container divs
+	tabPanels = document.getElementById("containers").getElementsByTagName("div");
+
+    // activate the _first_ one
+    displayPanel(tabLinks[0]);
+
+    // attach event listener to links using onclick and onfocus, fire the displayPanel function, return false to disable the link
+    for (var i = 0; i < tabLinks.length; i++) {
+        tabLinks[i].onclick = function() { 
+			displayPanel(this); 
+			return false;
+		}
+        tabLinks[i].onfocus = function() { 
+			displayPanel(this); 
+			return false;
+		}
+    }
+}
+
+function displayPanel(tabToActivate) {
+    // go through all the <li> elements
+    for (var i = 0; i < tabLinks.length; i++) {
+        if (tabLinks[i] == tabToActivate) {
+			// if it's the one to activate, change its class
+            tabLinks[i].classList.add("active");
+			// and display the corresponding panel
+			tabPanels[i].style.display = "block";
+        } else {
+			// remove the active class on the link
+        	tabLinks[i].classList.remove("active");
+			// hide the panel
+			tabPanels[i].style.display = "none";
+        }
+	}
+}  
+</script> 
+</head>
+<body>
+ 
+ <div id="tabsWrapper">
+  <aside role="complementary" class="languages">
+    <h3>Core Languages</h3>
+     <div id="tabContainer">
+    <div id="tabs">
+      <ul>
+        <li id="tab1"><a href="#tabPanel1">HTML</a></li>
+        <li id="tab2"><a href="#tabPanel2">CSS</a></li>
+        <li id="tab3"><a href="#tabPanel3">Javascript</a></li>
+      </ul>
+    </div>
+    <div id="containers">
+      <div id="tabPanel1">
+        <h4>HTML</h4>
+        <p><strong>Hypertext Markup Language.</strong> Controls the structure and semantics of web pages. Tags are used to mark up elements and denote content type. Although HTML does contain some presentational elements, it consists primarily of logical tags that identify content or provide information on content hierarchy.</p>
+        <p>HTML also allows for images and media such as video to be embedded as content on pages. This is usually referred to as replaced content, as the HTML tag will refer the user agent to fetch an external resource.</p>
+      </div>
+      <div id="tabPanel2">
+        <h4>CSS</h4>
+        <p><strong>Cascading Style Sheets.</strong> Controls the visual presentation of page elements. It is responsible for page layout, color, typography, and element dimensions. Recent additions to CSS have included transforms and animations, which have greatly expanded the capabilities of CSS and the effects that can be controlled through it.</p>
+        <p>CSS is a presentational language, meaning that it's syntax references page elements, and then assigns values to the visual properties of those elements. Although the basic syntax is easy to learn there are a considerable amount of properties and values to learn, as well as which element types they can apply to.</p>
+        <p>The "cascading" nature that CSS derives its name from indicates how styles are applied by user agents. Since styles can be applied from multiple sources, there are rules that control when styles are applied and how to resolve conflict. Understanding the cascade is a critical part of controlling site-wide styles efficiently.</p>
+      </div>
+      <div id="tabPanel3">
+        <h4>Javascript</h4>
+        <p><strong>JavaScript.</strong> Controls the behavior of page elements and is used to create interactive widgets, facilitate user interaction, control the browser, or a host of other functions. Javascript is a programming language, and its syntax is arguably the most difficult to learn of the three core languages. Page elements are accessed through the <strong>DOM</strong> (Document Object Model) and then manipulated through <strong>events</strong> and <strong>functions</strong>.</p>
+        <p>Because the code is executed within the browser and not on a web server, Javascript is often referred to as a "client-side" scripting language. This functionality makes Javascript faster than many other scripting choices, and capable of providing instant feedback or results to the user.</p>
+       <p>Over the years many Javascript frameworks and libraries have been developed to extend the capabilities of Javascript and make it faster to write. The success of libraries like jQuery have led to an explosion of Javascript development and have solidified it as the <i>de facto</i> scripting language for the web.</p>
+      </div>
+    </div>
+  </div>
+</aside>
+</div>
+</body>
+</html>
